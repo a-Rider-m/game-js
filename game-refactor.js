@@ -41,7 +41,7 @@ function startGame() {
      //podemos alinear el texto, teniendo en cuenta la posición inicial y final que le dimos
      game.textAlign = 'end';
 
-    const map = maps[2];
+    const map = maps[1];
 
     //Con trim limpiamos los espacios en blanco que tengamos al principio o al final de un string
     //split nos permite crear arrays a partir de strings
@@ -50,22 +50,18 @@ function startGame() {
     //map nos ayuda a crear arreglos a partir de otros arreglos
     //debido a que en este caso nos retoran cada elemento y estos son textos, ya podemos usar trim y split
     const mapRowCol = mapRows.map(row => row.trim().split(''))
-    
-    //Bloque para refactorizar
-    for (let row = 1; row <= 10; row++) {
-    
-        for(let col = 1; col <= 10; col++) {
 
-            //Podemos agregar texto (texto, posiciónX, posiciónY)
-            game.fillText(emojis[mapRowCol[row - 1][col - 1]], elementsSize * col, elementsSize * row);
+    //Bloque refactorizado (leer game.js para entender mejor el cambio)
+    mapRowCol.forEach((row, rowIndex) => {
+        row.forEach((col, colIndex) => {
 
-        };
-    };
+            const emoji = emojis[col];
 
+            //le sumamos 1 porque canvas no acepta cordenada 0, que es la posición del primer elemento de nuestro array (cualquier numero multiplicado por 0 es 0)
+            const positionX = elementsSize * (colIndex + 1);
+            const positionY = elementsSize * (rowIndex + 1);
 
-    //Definimos donde iniciará nuestro trazo (x, y, medidaW, medidaH)
-    //game.fillRect(0, 0, 100, 100);
-
-    //Tamaño de nuestro "borrador" (x, y, medidaW, medidaH)
-    //game.clearRect(0, 0, 50, 50);
+            game.fillText(emoji, positionX, positionY);
+        });
+    });
 };
