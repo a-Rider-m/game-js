@@ -6,6 +6,11 @@ const game = canvas.getContext('2d');
 let canvasSize;
 let elementsSize;
 
+const playerPosition = {
+    x: undefined,
+    y: undefined
+};
+
 //Load espera a que la página se carge para ejecutar nuestrafunción
 window.addEventListener('load', setCavasSize);
 
